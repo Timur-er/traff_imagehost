@@ -1,0 +1,84 @@
+@import '../../theme/styles/__var';
+
+.menu {
+  position: fixed;
+  width: 280px;
+  height: 100vh;
+  background-color: #1d2026;
+  overflow: hidden;
+  transition: 0.3s ease all;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__close {
+    width: 80px;
+  }
+
+  &__logoWrapper {
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+    justify-content: space-between;
+    margin: 20px 20px 0 20px;
+    height: 30px;
+  }
+
+  &__name {
+    display: flex;
+    flex-direction: column;
+    color: $greenColor;
+    font-size: 24px;
+    min-width: 150px;
+  }
+
+  &__nameClose {
+    display: none;
+  }
+
+  &__linksWrapper {
+    margin: 50px 0 0 20px;
+    display: flex;
+    row-gap: 20px;
+    flex-direction: column;
+  }
+
+  &__linksClose {
+    width: 80px;
+    padding: 50px 0 0 10px;
+  }
+
+  &__li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+    column-gap: 10px;
+  }
+
+  &__iconWrapper {
+
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $textColorGray;
+    transition: 0.3s ease all;
+  }
+
+  &__link:hover {
+    color: $greenColor;
+    cursor: pointer;
+  }
+
+  &__buttonWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    margin-bottom: 20px;
+  }
+}

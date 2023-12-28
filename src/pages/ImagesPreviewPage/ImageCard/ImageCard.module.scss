@@ -1,0 +1,36 @@
+@import '../../../theme/styles/__var';
+
+.card {
+  display: flex;
+  width: 300px; /* Fixed width or use percentages */
+  border-radius: 4px;
+  overflow: hidden;
+  flex-direction: column;
+  //border: 1px solid green;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__image {
+    width: 100%;
+    object-fit: contain;
+  }
+
+  &__title {
+    padding: 10px 0;
+    margin: 0;
+    font-size: 16px;
+    color: $greenColor;
+  }
+}
+
+.tooltip {
+  display: none;
+  background-color: black;
+  color: white;
+  padding: 0 10px;
+  border-radius: 1px;
+  white-space: nowrap; /* Чтобы текст подсказки не переносился на новую строку */
+  pointer-events: none; /* Чтобы подсказка не блокировала события мыши */
+}

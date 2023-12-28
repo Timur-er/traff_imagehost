@@ -1,0 +1,18 @@
+@import '../../theme/styles/__var';
+
+.pageContainer {
+  display: flex;
+  background-color: #282c34;
+  color: $textColorWhite;
+  width: calc(100% - 280px);
+  margin-left: 280px;
+  min-height: 100vh;
+  transition: 0.3s ease all;
+  //padding-top: 40px;
+
+  &__withMenuClose {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+    transition: 0.3s ease all;
+  }
+}

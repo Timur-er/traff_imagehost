@@ -1,0 +1,31 @@
+@import '../../theme/styles/__var';
+
+.wrapper {
+  padding: 40px;
+}
+
+.title {
+  color: $greenColor;
+}
+
+.imagesWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid green;
+  background-color: inherit;
+  color: #cccccc;
+
+  &__wrapper {
+    display: flex;
+    gap: 20px;
+  }
+
+}

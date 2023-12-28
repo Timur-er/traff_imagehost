@@ -1,0 +1,85 @@
+@import "../../theme/styles/__var";
+
+.auth {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: center;
+  background-color: #282c34;
+
+  &__background {
+    z-index: -1;
+    position: absolute;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  background-color: $secondaryColor;
+  margin: 0 auto;
+  padding: 20px;
+  justify-content: space-between;
+  border: 1px solid $greenColor;
+
+  &__title {
+    color: $greenColor;
+    font-size: 30px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
+
+  &__inputWrapper {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__labels {
+    color: $greenColor;
+    letter-spacing: 3px;
+    text-align: right;
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+    background-color: $secondaryColor;
+    color: $greenColor;
+    letter-spacing: 3px;
+    width: 100%;
+
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: $textColorGray;
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: $textColorGray;
+    }
+
+    &::-ms-input-placeholder { /* Microsoft Edge */
+      color: $textColorGray;
+    }
+
+
+    &__password {
+      font-family: Verdana, serif;
+      letter-spacing: 0.125em;
+    }
+  }
+
+  &__submit {
+    border: none;
+    outline: none;
+    color: $secondaryColor;
+    background-color: $greenColor;
+    width: 30%;
+    letter-spacing: 3px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

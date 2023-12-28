@@ -1,0 +1,52 @@
+.image{
+  max-width: 45%;
+}
+.imageWrapper {
+  display: flex;
+}
+
+.canvas {
+  object-fit: contain;
+  width: 500px;
+}
+
+.form {
+  display: flex;
+  gap: 40px;
+
+  &__inputWrapper {
+    display: flex;
+    gap: 10px;
+    color: #ececec;
+    vertical-align: center;
+    align-items: center;
+  }
+
+  &__input {
+    outline: none;
+    background-color: #282c34;
+    border: none;
+    border-bottom: 1px solid rgb(21, 232, 101);
+    color: #ececec;
+  }
+
+  &__buttonWrapper {
+    display: flex;
+    justify-content: center;
+
+  }
+
+  &__submit {
+    padding: 10px 20px;
+    font-size: 20px;
+    border: 1px solid rgb(21, 232, 101);
+    background-color: inherit;
+    color: rgb(21, 232, 101);
+    width: 25%;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 3px 3px 0 rgb(21, 232, 101);
+    }
+  }
+}
