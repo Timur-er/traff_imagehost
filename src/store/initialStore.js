@@ -1,5 +1,3 @@
-const snoop = () => {};
-
 const initialStore = {
     menu: {
         is_open: false,
@@ -24,7 +22,8 @@ const initialStore = {
     },
     user: {
         isAuth: false,
-        // loginFunction: snoop,
+        team: '',
+        role: '',
         is_loading: false,
     },
     loader: {

@@ -1,3 +1,5 @@
+@import "../../../theme/styles/__var";
+
 .image{
   max-width: 45%;
 }
@@ -12,8 +14,33 @@
 
 .form {
   display: flex;
+  vertical-align: center;
+  align-items: center;
   gap: 40px;
   margin-bottom: 40px;
+
+  &__hiddenInput {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+  }
+
+  &__hint {
+    color: $lightRedColor;
+    font-size: 18px;
+  }
+
+  &__customUpload {
+    border: 1px solid $greenColor;
+    color: $greenColor;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: inherit;
+    border-radius: 4px;
+  }
 
   &__inputWrapper {
     display: flex;

@@ -81,6 +81,7 @@ const AddImageForm = () => {
         formData.append('width', originalWidth)
         formData.append('height', originalHeight)
 
+        console.log('submit images');
         const response  = await addImage(formData)
         dispatch(openPopup(response.data.message, response.status !== 200))
         setImgSrc("")
@@ -102,7 +103,11 @@ const AddImageForm = () => {
     return (
         <div>
             <div className={styles.form}>
-                <input ref={fileRef} type="file" accept="image/*" onChange={onSelectFile} />
+                <label htmlFor="file-upload" className={styles.form__customUpload}>
+                    Upload Image
+                </label>
+                <input id="file-upload" className={styles.form__hiddenInput} ref={fileRef} type="file" accept="image/*" onChange={onSelectFile} />
+                <b className={styles.form__hint}>please, specify the file name to make it easier to find in the future </b>
             </div>
 
             {imgSrc && renderPreview}

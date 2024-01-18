@@ -5,20 +5,28 @@ import {getAllRoles} from "../../../http/usersAPI";
 import {getAllTeams} from "../../../http/SettingsAPI";
 import {registerNewUser} from "../../../http/userAPI";
 import {openPopup} from "../../../store/Popup/actions";
-import {useDispatch} from "react-redux";
-const AddNewTeamLeadForm = () => {
+import {useDispatch, useSelector} from "react-redux";
+import {getUserTeam} from "../../../store/User/selectors";
+const AddNewTeamLeadForm = ({role}) => {
     const [roles, setRoles] = useState([])
     const [teams, setTeams] = useState([])
     const dispatch = useDispatch()
+    const userTeam = useSelector(getUserTeam)
 
     useEffect( () => {
-        (async () => {
-            const fetchedRoles = await getAllRoles()
-            const fetchedTeams = await getAllTeams()
+        if (role === "admin") {
+            (async () => {
+                const fetchedRoles = await getAllRoles()
+                const fetchedTeams = await getAllTeams()
+                console.log(fetchedTeams);
 
-            setRoles(fetchedRoles.data)
-            setTeams(fetchedTeams.data)
-        })()
+                setRoles(fetchedRoles.data)
+                setTeams(fetchedTeams.data)
+            })()
+        } else {
+            setRoles([{name: "manager", id: 3}])
+            setTeams([{name: userTeam, id: 2}])
+        }
     }, [])
 
 
@@ -62,7 +70,7 @@ const AddNewTeamLeadForm = () => {
 
                             </Field>
 
-                            <button className={styles.form__button} type="submit">Create new team lead</button>
+                            <button className={styles.form__button} type="submit">Create new user</button>
                         </Form>
                     </div>
                 )

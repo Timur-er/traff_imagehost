@@ -4,6 +4,8 @@ import ImageCard from "./ImageCard/ImageCard";
 import styles from './ImagesPreviewPage.module.scss';
 import Pagination from "../../components/Pagination/Pagination";
 import {useDebounce} from "../../hooks/useDebounce.hook";
+import {useSelector} from "react-redux";
+import {getUserTeam} from "../../store/User/selectors";
 
 const ImagesPreviewPage = () => {
     const [images, setImages] = useState(null)
@@ -13,6 +15,7 @@ const ImagesPreviewPage = () => {
     const [activePage, setActivePage] = useState(1)
     const [searchQuery, setSearchQuery] = useState('')
     const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms delay
+    const teamName = useSelector(getUserTeam)
     const crops = [
         { label: '1x1', value: 'crop1x1' },
         { label: '4x3', value: 'crop4x3' },
@@ -26,7 +29,7 @@ const ImagesPreviewPage = () => {
         (async () => {
             try {
                 // move teamId from here to JWT???
-                const teamImages = await getAllTeamImages(1, activePage, debouncedSearchQuery);
+                const teamImages = await getAllTeamImages(teamName, activePage, debouncedSearchQuery);
                 setImages(teamImages.data.rows)
                 setPageCount(Math.ceil(teamImages.data.count / 8))
             } catch (error) {

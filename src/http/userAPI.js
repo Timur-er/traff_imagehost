@@ -13,7 +13,7 @@ export const loginAPI = async (userName, password) => {
 
 export const getNewAccessToken = async () => {
     try {
-        return await $host.get('/user/refresh');
+        return await $authHost.get('/user/refresh');
     } catch (e) {
         console.log(e);
     }

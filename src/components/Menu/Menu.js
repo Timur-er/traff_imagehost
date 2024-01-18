@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {userRoutes} from "../../routes/routes";
+// import {userRoutes} from "../../routes/routes";
 import BurgerBtn from "./BurgerButton/BurgerButton";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsMenuBarOpen} from "../../store/Menu/selectors";
@@ -8,7 +8,7 @@ import styles from './Menu.module.scss';
 import {useLocation} from "react-router-dom";
 import {logoutAction} from "../../store/User/actions";
 
-const Menu = () => {
+const Menu = ({availableRoutes}) => {
     const isMenuOpen = useSelector(getIsMenuBarOpen);
     const [navigationWrapperStyle, setNavigationWrapperStyle] = useState(`${styles.menu} ${styles.menu__close}`);
     const [logoStyle, setLogoStyle] = useState(`${styles.menu__name} ${styles.menu__nameClose}`)
@@ -26,7 +26,7 @@ const Menu = () => {
     }, [isMenuOpen])
 
 
-    const renderLinks = userRoutes.map((route, index) => {
+    const renderLinks = availableRoutes.map((route, index) => {
         const {icon, title, path} = route;
         return (
             <MenuLink key={index} isOpen={isMenuOpen} icon={icon} title={title} path={path} is_active={location.pathname === path}/>
