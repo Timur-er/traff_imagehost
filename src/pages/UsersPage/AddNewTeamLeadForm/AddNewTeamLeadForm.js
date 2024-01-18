@@ -4,9 +4,12 @@ import styles from './AddNewTeamLeadForm.module.scss';
 import {getAllRoles} from "../../../http/usersAPI";
 import {getAllTeams} from "../../../http/SettingsAPI";
 import {registerNewUser} from "../../../http/userAPI";
+import {openPopup} from "../../../store/Popup/actions";
+import {useDispatch} from "react-redux";
 const AddNewTeamLeadForm = () => {
     const [roles, setRoles] = useState([])
     const [teams, setTeams] = useState([])
+    const dispatch = useDispatch()
 
     useEffect( () => {
         (async () => {
@@ -28,12 +31,11 @@ const AddNewTeamLeadForm = () => {
                 roleId: roles.length !==0 && roles[0].id,
                 teamId: teams.length !==0 && teams[0].id,
             }}
-            onSubmit={async (values) => {
+            onSubmit={async (values, {resetForm}) => {
                 const {email, password, roleId, teamId} = values
-                console.log(values);
-                console.log('user created');
                 const register = await registerNewUser(email, password, roleId, teamId)
-                console.log(register);
+                dispatch(openPopup(register.data))
+                resetForm()
             }}
         >
             {() => {
@@ -42,8 +44,6 @@ const AddNewTeamLeadForm = () => {
                         <Form className={styles.form}>
                             <Field className={styles.form__input} type="text" name='email' placeholder="user email"/>
                             <Field className={styles.form__input} type="text" name='password' placeholder="user password"/>
-                            {/*<Field className={styles.form__input} type="text" name='role' placeholder="user role"/>*/}
-                            {/*<Field className={styles.form__input} type="text" name='team' placeholder="user team"/>*/}
 
                             <Field as="select" name='teamId' className={styles.form__input}>
 

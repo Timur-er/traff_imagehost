@@ -1,25 +1,17 @@
-import React, {useEffect} from "react";
+import React from "react";
 import UserRoutes from "./routes/UserRoutes";
-import {useDispatch, useSelector} from "react-redux";
-import {useAuth} from "./hooks/auth.hook";
-import {authFunctionAction} from "./store/User/actions";
+import {useSelector} from "react-redux";
 import {getIsUserAuth} from "./store/User/selectors";
 import AuthPage from "./pages/AuthPage/AuthPage";
+import Popup from "./components/Popup/Popup";
 
 function App() {
-    // const dispatch = useDispatch();
     const isAuth = useSelector(getIsUserAuth)
-    // const { login } = useAuth();
-
-    // useEffect(() => {
-    //     dispatch(authFunctionAction(login))
-    // }, [login, dispatch])
-
 
     return (
         <div className="App">
             {isAuth ? <UserRoutes/> : <AuthPage />}
-
+            <Popup />
         </div>
     );
 }

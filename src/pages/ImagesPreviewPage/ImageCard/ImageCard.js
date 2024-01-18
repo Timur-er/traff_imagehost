@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import styles from './ImageCard.module.scss';
+import {useDispatch} from "react-redux";
+import {openPopup} from "../../../store/Popup/actions";
 
 const ImageCard = ({fileName, imageName, id, aspectRatio, width}) => {
     const [tooltipStyle, setTooltipStyle] = useState({ display: 'none' });
+    const dispatch = useDispatch()
 
     const handleClick = async (e) => {
         e.preventDefault()
@@ -11,9 +14,9 @@ const ImageCard = ({fileName, imageName, id, aspectRatio, width}) => {
 
         try {
             await navigator.clipboard.writeText(link);
-            console.log('Link copied to clipboard');
+            dispatch(openPopup('Link copied to clipboard'))
         } catch (err) {
-            console.error('Failed to copy link to clipboard', err);
+            dispatch(openPopup('Failed to copy link to clipboard'))
         }
     }
 

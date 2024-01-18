@@ -1,16 +1,20 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import { centerAspectCrop } from "./utils/CenterAspectCrop";
 import "react-image-crop/dist/ReactCrop.css";
 import ImagePreview from "./ImagePreview/ImagePreview";
 import styles from './AddImageForm.module.scss';
 import {addImage} from "../../../http/ImagesAPI";
+import {useDispatch} from "react-redux";
+import {openPopup} from "../../../store/Popup/actions";
 
 
 const AddImageForm = () => {
+    const dispatch = useDispatch()
     const [imgSrc, setImgSrc] = useState("");
     const [image, setImage] = useState(null)
     const [originalWidth, setOriginalWidth] = useState()
     const [originalHeight, setOriginalHeight] = useState()
+    const fileRef = useRef()
     const [crops, setCrops] = useState({
         crop1x1: null,
         crop4x3: null,
@@ -55,7 +59,7 @@ const AddImageForm = () => {
     }
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const formData = new FormData();
 
         formData.append('image', image)
@@ -77,9 +81,11 @@ const AddImageForm = () => {
         formData.append('width', originalWidth)
         formData.append('height', originalHeight)
 
-        addImage(formData)
-
-        // better way to reload the form...
+        const response  = await addImage(formData)
+        dispatch(openPopup(response.data.message, response.status !== 200))
+        setImgSrc("")
+        setImage(null)
+        fileRef.current.value = "";
     }
 
     const renderPreview = aspectRatios.map(({aspect, cropKey}) => {
@@ -96,7 +102,7 @@ const AddImageForm = () => {
     return (
         <div>
             <div className={styles.form}>
-                <input type="file" accept="image/*" onChange={onSelectFile} />
+                <input ref={fileRef} type="file" accept="image/*" onChange={onSelectFile} />
             </div>
 
             {imgSrc && renderPreview}

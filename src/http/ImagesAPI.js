@@ -2,8 +2,7 @@ import {$uploadImageHost, $authHost} from "./index";
 
 export const addImage = async(image) => {
     try {
-        const response = await $uploadImageHost.post('/image/addImage', image)
-        console.log('response', response);
+        return await $uploadImageHost.post('/image/addImage', image)
     } catch (e) {
         console.log(e);
     }

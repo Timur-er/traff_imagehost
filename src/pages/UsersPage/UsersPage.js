@@ -3,10 +3,13 @@ import {getAllUsers} from "../../http/usersAPI";
 import styles from './UsersPage.module.scss';
 import AddNewTeamLeadForm from "./AddNewTeamLeadForm/AddNewTeamLeadForm";
 import {createNewTeam} from "../../http/SettingsAPI";
+import {useDispatch} from "react-redux";
+import {openPopup} from "../../store/Popup/actions";
 
 const UsersPage = () => {
     const [users, setUsers] = useState([])
     const newTeamRef = useRef()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         (async () => {
@@ -34,7 +37,7 @@ const UsersPage = () => {
     const createNewTeamHandler = async () => {
         const teamName = newTeamRef.current.value
         const response = await createNewTeam(teamName)
-        // add popup here
+        dispatch(openPopup(response.data.message, response.status !== 200))
     }
 
 
