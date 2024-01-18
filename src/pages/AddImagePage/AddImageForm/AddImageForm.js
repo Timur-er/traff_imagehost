@@ -23,7 +23,7 @@ const AddImageForm = () => {
         { aspect: 1, cropKey: 'crop1x1' },
         { aspect: 4/3, cropKey: 'crop4x3' },
         { aspect: 16/9, cropKey: 'crop16x9' },
-        { aspect: 2/1, cropKey: 'crop2x1' },
+        { aspect: 2, cropKey: 'crop2x1' }, // is 2 working the same as 2/1
         { aspect: 3/2, cropKey: 'crop3x2' }
     ];
 
@@ -82,7 +82,7 @@ const AddImageForm = () => {
         // better way to reload the form...
     }
 
-    const renderPreview = aspectRatios.map(({aspect, cropKey}, id) => {
+    const renderPreview = aspectRatios.map(({aspect, cropKey}) => {
         return (
             <ImagePreview
                 key={cropKey}
@@ -99,7 +99,7 @@ const AddImageForm = () => {
                 <input type="file" accept="image/*" onChange={onSelectFile} />
             </div>
 
-            {renderPreview}
+            {imgSrc && renderPreview}
 
             <div className={styles.form__buttonWrapper}>
                 {imgSrc && (

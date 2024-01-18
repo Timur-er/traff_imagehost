@@ -1,0 +1,22 @@
+@import '../../../theme/styles/__var';
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__input {
+    background-color: inherit;
+    border: none;
+    border-bottom: 1px solid $greenColor;
+    color: $textColorGray;
+    outline: none;
+  }
+
+  &__button {
+    background-color: inherit;
+    border: 1px solid $greenColor;
+    color: $greenColor;
+    padding: 5px;
+  }
+}

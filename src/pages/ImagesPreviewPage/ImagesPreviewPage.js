@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {getAllImages} from "../../http/ImagesAPI";
+import {getAllTeamImages} from "../../http/ImagesAPI";
 import ImageCard from "./ImageCard/ImageCard";
 import styles from './ImagesPreviewPage.module.scss';
+import Pagination from "../../components/Pagination/Pagination";
+import {useDebounce} from "../../hooks/useDebounce.hook";
 
 const ImagesPreviewPage = () => {
     const [images, setImages] = useState(null)
     const [aspectRatio, setAspectRatio] = useState('1x1');
     const [width, setWidth] = useState(500)
+    const [pageCount, setPageCount] = useState(1)
+    const [activePage, setActivePage] = useState(1)
+    const [searchQuery, setSearchQuery] = useState('')
+    const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms delay
     const crops = [
         { label: '1x1', value: 'crop1x1' },
         { label: '4x3', value: 'crop4x3' },
@@ -19,14 +25,16 @@ const ImagesPreviewPage = () => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await getAllImages();
-                setImages(response.data)
-                console.log(response);
+                const teamImages = await getAllTeamImages(activePage, debouncedSearchQuery);
+                setImages(teamImages.data.rows)
+                setPageCount(Math.ceil(teamImages.data.count / 8))
             } catch (error) {
                 console.error('Failed to fetch images', error);
             }
         })();
-    }, []);
+    }, [activePage, debouncedSearchQuery]);
+
+
 
 
     const renderImages = images && images.map((image) => {
@@ -66,15 +74,25 @@ const ImagesPreviewPage = () => {
                 </select>
 
                 <input
-                    className={styles.input} type="text"
+                    className={styles.input}
+                    type="text"
                     onChange={(e) => setWidth(e.target.value)}
                     placeholder='change width'
+                />
+
+                <input
+                    className={styles.input}
+                    placeholder="search query..."
+                    type="text"
+                    onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
 
             <div className={styles.imagesWrapper}>
                 {renderImages}
             </div>
+
+            <Pagination activePage={activePage} setActivePage={setActivePage} count={pageCount}/>
         </div>
     );
 };

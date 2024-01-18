@@ -19,12 +19,13 @@ const $authHost = axios.create({
 })
 
 const authInterceptor = config => {
-    const token = JSON.parse(localStorage.getItem('jwt_token'));
+    const token = JSON.parse(localStorage.getItem('access_token'));
     config.headers.Authorization = `Bearer ${token}`;
     return config;
 }
 
 $authHost.interceptors.request.use(authInterceptor);
+$uploadImageHost.interceptors.request.use(authInterceptor)
 $authHost.interceptors.response.use((config) => {
     return config;
 }, (error => {
@@ -32,5 +33,14 @@ $authHost.interceptors.response.use((config) => {
         console.log('Unauthorized error')
     }
 }))
+
+$uploadImageHost.interceptors.response.use((config) => {
+    return config;
+}, (error => {
+    if (error.response.status === 401) {
+        console.log('Unauthorized error')
+    }
+}))
+
 
 export {$host, $uploadImageHost, $authHost}

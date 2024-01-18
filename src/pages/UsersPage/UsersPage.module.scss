@@ -1,0 +1,70 @@
+@import '../../theme/styles/__var';
+
+.wrapper {
+  padding: 40px;
+  display: flex;
+  width: 100%;
+  gap: 50px;
+}
+
+.formsWrapper {
+  width: 25%;
+}
+
+.title {
+  color: $greenColor;
+}
+
+.team_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input {
+  background-color: inherit;
+  border: none;
+  border-bottom: 1px solid $greenColor;
+  color: $textColorGray;
+  outline: none;
+}
+
+.button {
+  background-color: inherit;
+  border: 1px solid $greenColor;
+  color: $greenColor;
+  padding: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.select {
+  outline: none;
+  border: 1px solid $greenColor;
+  background-color: inherit;
+  color: $greenColor;
+  padding: 5px;
+}
+
+.usersTable {
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    color: $textColorGray;
+    vertical-align: center;
+    align-items: center;
+  }
+
+  &__button {
+    border: 1px solid $greenColor;
+
+  }
+}

@@ -1,7 +1,8 @@
 import React from "react";
-import {ADD_IMAGE, SHOW_IMAGES} from "./consts";
+import {ADD_IMAGE, SHOW_IMAGES, USERS_PAGE} from "./consts";
 import AddImagePage from "../pages/AddImagePage/AddImagePage";
 import ImagesPreviewPage from "../pages/ImagesPreviewPage/ImagesPreviewPage";
+import UsersPage from "../pages/UsersPage/UsersPage";
 
 export const userRoutes = [
     {
@@ -15,5 +16,11 @@ export const userRoutes = [
         path: SHOW_IMAGES,
         element: <ImagesPreviewPage />,
         icon: 'creatorIcon',
+    },
+    {
+        title: 'Users page',
+        path: USERS_PAGE,
+        element: <UsersPage />,
+        icon: 'settingsIcon',
     },
 ]

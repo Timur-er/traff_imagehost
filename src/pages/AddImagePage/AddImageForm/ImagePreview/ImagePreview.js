@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect} from 'react';
+import React, { useRef, useState } from 'react';
 import ReactCrop from "react-image-crop";
 import {centerAspectCrop} from "../utils/CenterAspectCrop";
 import {useDebounceEffect} from "../utils/useDebounceEffect";
@@ -7,23 +7,18 @@ import styles from './ImagePreview.module.scss';
 
 const ImagePreview = ({imgSrc, aspect, setCrop}) => {
     const [localCrop, setLocalCrop] = useState(null)
-    const [completedCrop, setCompletedCrop] = useState();
+    const [completedCrop, setCompletedCrop] = useState(null);
     const imgRef = useRef(null);
     const previewCanvasRef = useRef(null);
 
     const onImageLoad = (e) => {
+        e.preventDefault()
         if (aspect) {
             const { width, height } = e.currentTarget;
             const crop = centerAspectCrop(width, height, aspect);
             setLocalCrop(crop);
         }
     }
-
-    useEffect(() => {
-        console.log('image ref - ', imgRef);
-        console.log('canvas ref - ', previewCanvasRef)
-        console.log('=========NEXT========');
-    }, [])
 
     useDebounceEffect(
         async () => {

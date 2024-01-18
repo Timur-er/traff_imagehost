@@ -20,10 +20,10 @@ export const useAuth = () => {
     useEffect(() => {
         dispatch(isUserLoadingAction(true));
         async function refreshAccessToken() {
-            const access_token = JSON.parse(localStorage.getItem('access_token'))
             const refresh_token = JSON.parse(localStorage.getItem('refresh_token'))
             if (refresh_token) {
-                const new_access_token = await getNewAccessToken(refresh_token)
+                let new_access_token = await getNewAccessToken(refresh_token)
+                new_access_token = new_access_token.data.access_token
                 login(new_access_token, refresh_token)
             }
             dispatch(isUserLoadingAction(false));

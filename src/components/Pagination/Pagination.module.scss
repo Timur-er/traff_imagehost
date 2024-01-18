@@ -1,0 +1,23 @@
+@import '../../theme/styles/__var';
+
+.pagination {
+  display: flex;
+  gap: 5px;
+
+  &__button {
+    padding: 5px 10px;
+    border: 1px solid $greenColor;
+    text-align: center;
+    color: $textColorGray;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 2px 1px $greenColor;
+    }
+  }
+
+  &__active {
+    color: $greenColor;
+  }
+
+}

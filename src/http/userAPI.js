@@ -1,4 +1,4 @@
-import {$host} from "./index";
+import {$authHost, $host} from "./index";
 
 export const loginAPI = async (userName, password) => {
     try {
@@ -11,10 +11,17 @@ export const loginAPI = async (userName, password) => {
     }
 }
 
-export const getNewAccessToken = async (refresh) => {
+export const getNewAccessToken = async () => {
     try {
-        const response = await $host.get('/user/refresh');
-        return response;
+        return await $host.get('/user/refresh');
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const registerNewUser = async (email, password, roleId, teamId) => {
+    try {
+        return await $authHost.post('/user/registration', {email, password, roleId, teamId})
     } catch (e) {
         console.log(e);
     }
