@@ -6,8 +6,7 @@ import {getIsMenuBarOpen} from "../../store/Menu/selectors";
 import MenuLink from "./MenuLink/MenuLink";
 import styles from './Menu.module.scss';
 import {useLocation} from "react-router-dom";
-// import CustomButton from "../CustomButton/CustomButton";
-// import {logoutAction} from "../../store/User/actions";
+import {logoutAction} from "../../store/User/actions";
 
 const Menu = () => {
     const isMenuOpen = useSelector(getIsMenuBarOpen);
@@ -36,7 +35,7 @@ const Menu = () => {
 
     const logoutHandler = () => {
         localStorage.clear()
-        // dispatch(logoutAction())
+        dispatch(logoutAction())
     }
 
     return (
@@ -60,7 +59,7 @@ const Menu = () => {
             </div>
 
             <div className={styles.menu__buttonWrapper}>
-                {/*<CustomButton text='logout' type='selected' onClick={() => logoutHandler()}/>*/}
+                <button className={styles.menu__button} onClick={() => logoutHandler()}>log out</button>
             </div>
         </div>
     );

@@ -81,4 +81,14 @@
     height: max-content;
     margin-bottom: 20px;
   }
+
+  &__button {
+    border: none;
+    color: $greenColor;
+    background-color: inherit;
+    padding: 5px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
