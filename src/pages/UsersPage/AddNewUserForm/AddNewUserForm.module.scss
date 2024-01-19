@@ -6,6 +6,7 @@
   gap: 20px;
 
   &__input {
+    width: 100%;
     background-color: inherit;
     border: none;
     border-bottom: 1px solid $greenColor;
@@ -13,10 +14,19 @@
     outline: none;
   }
 
+  &__error {
+    color: $lightRedColor;
+    margin: 0;
+  }
+
+
   &__button {
     background-color: inherit;
     border: 1px solid $greenColor;
     color: $greenColor;
     padding: 5px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getAllUsers} from "../../http/usersAPI";
 import styles from './UsersPage.module.scss';
-import AddNewTeamLeadForm from "./AddNewTeamLeadForm/AddNewTeamLeadForm";
+import AddNewUserForm from "./AddNewUserForm/AddNewUserForm";
 import {useSelector} from "react-redux";
 import {getUserRole} from "../../store/User/selectors";
 import AddNewTeamForm from "./AddNewTeamForm/AddNewTeamForm";
@@ -41,7 +41,7 @@ const UsersPage = () => {
                 {role === 'admin' && <AddNewTeamForm />}
                 <div>
                     <h2 className={styles.title}>Add new user</h2>
-                    <AddNewTeamLeadForm role={role}/>
+                    <AddNewUserForm role={role}/>
                 </div>
             </div>
 
