@@ -28,7 +28,6 @@ const ImagesPreviewPage = () => {
     useEffect(() => {
         (async () => {
             try {
-                // move teamId from here to JWT???
                 const teamImages = await getAllTeamImages(teamName, activePage, debouncedSearchQuery);
                 setImages(teamImages.data.rows)
                 setPageCount(Math.ceil(teamImages.data.count / 8))

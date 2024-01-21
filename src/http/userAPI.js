@@ -2,10 +2,7 @@ import {$authHost, $host} from "./index";
 
 export const loginAPI = async (userName, password) => {
     try {
-        console.log('user name - ', userName);
-        const response =  await $host.post('/user/login', {userName, password})
-        console.log(response);
-        return response
+        return await $host.post('/user/login', {userName, password})
     } catch (error) {
         throw error;
     }

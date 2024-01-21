@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-// import {userRoutes} from "../../routes/routes";
+import React from 'react';
 import BurgerBtn from "./BurgerButton/BurgerButton";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsMenuBarOpen} from "../../store/Menu/selectors";
@@ -7,31 +6,32 @@ import MenuLink from "./MenuLink/MenuLink";
 import styles from './Menu.module.scss';
 import {useLocation} from "react-router-dom";
 import {logoutAction} from "../../store/User/actions";
+import classNames from "classnames";
 
 const Menu = ({availableRoutes}) => {
     const isMenuOpen = useSelector(getIsMenuBarOpen);
-    const [navigationWrapperStyle, setNavigationWrapperStyle] = useState(`${styles.menu} ${styles.menu__close}`);
-    const [logoStyle, setLogoStyle] = useState(`${styles.menu__name} ${styles.menu__nameClose}`)
     const location = useLocation();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (isMenuOpen) {
-            setNavigationWrapperStyle(`${styles.menu}`);
-            setLogoStyle(`${styles.menu__name}`)
-        } else {
-            setNavigationWrapperStyle(`${styles.menu} ${styles.menu__close}`);
-            setLogoStyle(`${styles.menu__name} ${styles.menu__nameClose}`)
-        }
-    }, [isMenuOpen])
+    const navigationWrapperStyle = classNames(styles.menu, {
+        [styles.menu__close]: !isMenuOpen,
+    });
+
+    const logoStyle = classNames(styles.menu__name, {
+        [styles.menu__nameClose]: !isMenuOpen,
+    });
 
 
-    const renderLinks = availableRoutes.map((route, index) => {
-        const {icon, title, path} = route;
-        return (
-            <MenuLink key={index} isOpen={isMenuOpen} icon={icon} title={title} path={path} is_active={location.pathname === path}/>
-        )
-    })
+    const renderLinks = availableRoutes.map((route, index) => (
+        <MenuLink
+            key={route.id || index}
+            isOpen={isMenuOpen}
+            icon={route.icon}
+            title={route.title}
+            path={route.path}
+            is_active={location.pathname === route.path}
+        />
+    ));
 
     const logoutHandler = () => {
         localStorage.clear()

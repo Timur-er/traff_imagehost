@@ -1,27 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Icon from "../../Icon/Icon";
 import {NavLink} from "react-router-dom";
 import styles from './MenuLink.module.scss';
+import classNames from "classnames";
 
 const MenuLink = React.memo(({isOpen, icon, title, path, is_active}) => {
     const [isLinkHovered, setIsLinkHovered] = useState(false);
-    const [linkStyle, setLinkStyle] = useState(`${styles.menuLink}`)
 
-    useEffect(() => {
-        if (is_active) {
-            setLinkStyle(`${styles.menuLink} ${styles.menuLink__active}`)
-        } else {
-            setLinkStyle(`${styles.menuLink}`)
-        }
-    }, [is_active])
+    const linkStyle = classNames(styles.menuLink, {
+        [styles.menuLink__active]: is_active,
+    });
 
-    const handleMouse = () => {
-        setIsLinkHovered(!isLinkHovered)
-    }
+    const titleStyle = classNames(styles.menuLink__title, {
+        [styles.menuLink__closedTitle]: !isOpen,
+    });
 
     return (
         <NavLink className={styles.menuLink__link} to={path}>
-            <li onMouseEnter={handleMouse} onMouseLeave={handleMouse} className={linkStyle}>
+            <li onMouseEnter={() => setIsLinkHovered(true)}
+                onMouseLeave={() => setIsLinkHovered(false)}
+                className={linkStyle}>
                     <span>
                         <Icon
                             type={icon}
@@ -31,9 +29,7 @@ const MenuLink = React.memo(({isOpen, icon, title, path, is_active}) => {
                         />
                     </span>
                 <span
-                    className={isOpen ? `${styles.menuLink__title}`
-                        : `${styles.menuLink__title} ${styles.menuLink__closedTitle}`
-                    }>
+                    className={titleStyle}>
                 {title}
             </span>
             </li>

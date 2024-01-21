@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import { centerAspectCrop } from "./utils/CenterAspectCrop";
 import "react-image-crop/dist/ReactCrop.css";
 import ImagePreview from "./ImagePreview/ImagePreview";
@@ -31,32 +31,36 @@ const AddImageForm = () => {
         { aspect: 3/2, cropKey: 'crop3x2' }
     ];
 
-    function onSelectFile(e) {
+    const handleImageLoad = useCallback((readerResult) => {
+        setImgSrc(readerResult);
+        const image = new Image();
+        image.onload = () => {
+            const {width, height} = image;
+
+            setOriginalWidth(width / 100)
+            setOriginalHeight(height / 100)
+
+            aspectRatios.forEach(({aspect, cropKey}) => {
+                const cropped = centerAspectCrop(width, height, aspect)
+                setCrops(prevCrops => ({
+                    ...prevCrops,
+                    [cropKey]: cropped
+                }))
+            })
+        };
+        image.src = readerResult;
+    }, []);
+
+    const onSelectFile = useCallback((e) => {
         if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            setImage(file);
             const reader = new FileReader();
-            setImage(e.target.files[0])
-            reader.addEventListener("load", () => {
-                setImgSrc(reader.result?.toString() || "");
-                const image = new Image();
-                image.addEventListener('load', function() {
-                    const {width, height} = image;
-
-                    setOriginalWidth(width / 100)
-                    setOriginalHeight(height / 100)
-
-                    aspectRatios.forEach(({aspect, cropKey}) => {
-                        const cropped = centerAspectCrop(width, height, aspect)
-                        setCrops(prevCrops => ({
-                            ...prevCrops,
-                            [cropKey]: cropped
-                        }))
-                    })
-                });
-                image.src = reader.result?.toString() || "";
-            });
-            reader.readAsDataURL(e.target.files[0]);
+            reader.onload = () => handleImageLoad(reader.result.toString());
+            reader.onerror = (error) => console.error('Error reading file:', error);
+            reader.readAsDataURL(file);
         }
-    }
+    }, [handleImageLoad]);
 
 
     const handleSubmit = async () => {

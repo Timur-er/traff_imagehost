@@ -1,22 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useSelector} from "react-redux";
 import {getIsMenuBarOpen} from "../../store/Menu/selectors";
 import styles from './PageWrapper.module.scss';
+import classNames from 'classnames';
 
 const PageContainer = React.memo(({children}) => {
     const isMenuOpen = useSelector(getIsMenuBarOpen);
-    const [pageContainerStyle, setPageContainerStyle] = useState(`${styles.pageContainer} ${styles.pageContainer__withMenuClose}`);
 
-    useEffect(() => {
-        if (isMenuOpen) {
-            setPageContainerStyle(`${styles.pageContainer}`)
-        } else {
-            setPageContainerStyle(`${styles.pageContainer} ${styles.pageContainer__withMenuClose}`)
-        }
-    }, [isMenuOpen])
+    const containerClass = classNames(styles.pageContainer, {
+        [styles.pageContainer__withMenuClose]: !isMenuOpen,
+    });
 
     return (
-        <div className={pageContainerStyle}>
+        <div className={containerClass}>
             {children}
         </div>
     );

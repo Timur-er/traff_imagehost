@@ -11,7 +11,6 @@ const AddNewTeamForm = () => {
     const createNewTeamHandler = async () => {
         const teamName = newTeamRef.current.value
         const response = await createNewTeam(teamName)
-        // there is some problem here
         dispatch(openPopup(response.data.message, response.status !== 200))
     }
 

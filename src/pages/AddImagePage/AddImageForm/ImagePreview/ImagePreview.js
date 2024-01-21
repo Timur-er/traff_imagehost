@@ -12,7 +12,6 @@ const ImagePreview = ({imgSrc, aspect, setCrop}) => {
     const previewCanvasRef = useRef(null);
 
     const onImageLoad = (e) => {
-        e.preventDefault()
         if (aspect) {
             const { width, height } = e.currentTarget;
             const crop = centerAspectCrop(width, height, aspect);

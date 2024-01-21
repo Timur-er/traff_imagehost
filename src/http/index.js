@@ -1,46 +1,29 @@
 import axios from "axios";
 
-const $uploadImageHost = axios.create({
-    withCredentials: false,
-    baseURL: 'http://localhost:8000/api',
-    headers: {
-        'Content-Type': 'multipart/form-data'
+const createAPIHost = (withCredentials, baseURL, headers = {}) => {
+    return axios.create({ withCredentials, baseURL, headers });
+};
+const $host = createAPIHost(true, 'http://localhost:8000/api');
+const $uploadImageHost = createAPIHost(false, 'http://localhost:8000/api', {'Content-Type': 'multipart/form-data'});
+const $authHost = createAPIHost(true, 'http://localhost:8000/api');
+
+const handleResponseError = error => {
+    if (error.response && error.response.status === 401) {
+        console.log('Unauthorized error');
+        // Additional error handling (e.g., redirect to login or refresh token)
     }
-})
-
-const $host =axios.create({
-    withCredentials: true,
-    baseURL: 'http://localhost:8000/api',
-})
-
-const $authHost = axios.create({
-    withCredentials: true,
-    baseURL: 'http://localhost:8000/api'
-})
-
+    return Promise.reject(error);
+};
 const authInterceptor = config => {
     const token = JSON.parse(localStorage.getItem('access_token'));
     config.headers.Authorization = `Bearer ${token}`;
     return config;
 }
 
-$authHost.interceptors.request.use(authInterceptor);
-$uploadImageHost.interceptors.request.use(authInterceptor)
-$authHost.interceptors.response.use((config) => {
-    return config;
-}, (error => {
-    if (error.response.status === 401) {
-        console.log('Unauthorized error')
-    }
-}))
-
-$uploadImageHost.interceptors.response.use((config) => {
-    return config;
-}, (error => {
-    if (error.response.status === 401) {
-        console.log('Unauthorized error')
-    }
-}))
+[$authHost, $uploadImageHost].forEach(host => {
+    host.interceptors.request.use(authInterceptor);
+    host.interceptors.response.use(response => response, handleResponseError);
+});
 
 
 export {$host, $uploadImageHost, $authHost}

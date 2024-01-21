@@ -9,6 +9,7 @@ const ImageCard = ({fileName, imageName, id, aspectRatio, width}) => {
 
     const handleClick = async (e) => {
         e.preventDefault()
+        // change link for server var
         const link = `http://localhost:8000/api/image/getCroppedImage/${id}/crop${aspectRatio}/${width}`
         console.log('created link - ', link);
 

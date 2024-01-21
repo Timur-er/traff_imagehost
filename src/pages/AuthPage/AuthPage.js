@@ -5,14 +5,11 @@ import {useAuth} from '../../hooks/auth.hook';
 import {loginAPI} from "../../http/userAPI";
 import {useNavigate} from 'react-router-dom';
 import {ADD_IMAGE} from "../../routes/consts";
-import {useDispatch} from "react-redux";
-// import {openPopup} from "../../store/Popup/actions";
 import style from './AuthPage.module.scss';
 
 const AuthenticatePage = () => {
     const {login} = useAuth();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const validationSchema = Yup.object({
         userName: Yup.string().required("username is required!"),
@@ -31,13 +28,12 @@ const AuthenticatePage = () => {
                     const {userName, password} = values;
                     try {
                         const token = await loginAPI(userName, password)
-                        console.log('token from auth page - ', token);
                         const {access_token, refresh_token} = token.data;
                         login(access_token, refresh_token)
                         navigate(ADD_IMAGE);
                         setSubmitting(false)
                     } catch (err) {
-                        // dispatch(openPopup(err.response.data.detail, true))
+                        console.log(err);
                     }
                 }}
             >
