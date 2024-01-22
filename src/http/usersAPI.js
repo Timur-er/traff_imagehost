@@ -15,3 +15,11 @@ export const getAllRoles = async () => {
         console.log(e);
     }
 }
+
+export const deleteUser = async (id) => {
+    try {
+        return await $authHost.delete(`/users/removeUser/${id}`);
+    } catch (e) {
+        console.log(e);
+    }
+}
