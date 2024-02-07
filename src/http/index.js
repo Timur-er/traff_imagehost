@@ -1,11 +1,12 @@
 import axios from "axios";
 
 const createAPIHost = (withCredentials, baseURL, headers = {}) => {
-    return axios.create({ withCredentials, baseURL, headers });
+    let URL = `${baseURL}/api`
+    return axios.create({ withCredentials, baseURL: URL, headers });
 };
-const $host = createAPIHost(true, 'http://localhost:8000/api');
-const $uploadImageHost = createAPIHost(false, 'http://localhost:8000/api', {'Content-Type': 'multipart/form-data'});
-const $authHost = createAPIHost(true, 'http://localhost:8000/api');
+const $host = createAPIHost(true, process.env.REACT_APP_API_URL);
+const $uploadImageHost = createAPIHost(false, process.env.REACT_APP_API_URL, {'Content-Type': 'multipart/form-data'});
+const $authHost = createAPIHost(true, process.env.REACT_APP_API_URL);
 
 const handleResponseError = error => {
     if (error.response && error.response.status === 401) {

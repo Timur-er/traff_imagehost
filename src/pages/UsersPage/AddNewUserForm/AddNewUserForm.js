@@ -20,7 +20,6 @@ const AddNewUserForm = ({role}) => {
             (async () => {
                 const fetchedRoles = await getAllRoles()
                 const fetchedTeams = await getAllTeams()
-                console.log(fetchedTeams);
 
                 setRoles(fetchedRoles.data)
                 setTeams(fetchedTeams.data)

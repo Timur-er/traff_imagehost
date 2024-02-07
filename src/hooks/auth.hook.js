@@ -13,26 +13,26 @@ export const useAuth = () => {
         dispatch(loginUserOperation(access_token))
         localStorage.setItem('access_token', JSON.stringify(access_token))
         localStorage.setItem('refresh_token', JSON.stringify(refresh_token))
-    }, [dispatch])
+    }, [])
+
+    async function refreshAccessToken() {
+        const refresh_token = JSON.parse(localStorage.getItem('refresh_token'))
+        if (refresh_token) {
+            let response = await getNewAccessToken(refresh_token)
+            if (response && response.data) {
+                const new_access_token = response.data.access_token;
+                login(new_access_token, refresh_token);
+            } else {
+                localStorage.clear()
+                console.error('Invalid response from getNewAccessToken:', response);
+            }
+        }
+        dispatch(isUserLoadingAction(false))
+    }
 
     useEffect(() => {
-        dispatch(isUserLoadingAction(true));
-        async function refreshAccessToken() {
-            const refresh_token = JSON.parse(localStorage.getItem('refresh_token'))
-            if (refresh_token) {
-                let response = await getNewAccessToken(refresh_token)
-                if (response && response.data) {
-                    const new_access_token = response.data.access_token;
-                    login(new_access_token, refresh_token);
-                } else {
-                    // Handle the case where response or response.data is not as expected
-                    console.error('Invalid response from getNewAccessToken:', response);
-                }
-            }
-            dispatch(isUserLoadingAction(false));
-        }
         refreshAccessToken();
-    }, [dispatch, login])
+    }, [])
 
     return {login}
 }

@@ -24,7 +24,7 @@ const initialStore = {
         isAuth: false,
         team: '',
         role: '',
-        is_loading: false,
+        is_loading: true,
     },
     loader: {
         is_loading: false,

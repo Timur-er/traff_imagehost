@@ -85,7 +85,6 @@ const AddImageForm = () => {
         formData.append('width', originalWidth)
         formData.append('height', originalHeight)
 
-        console.log('submit images');
         const response  = await addImage(formData)
         dispatch(openPopup(response.data.message, response.status !== 200))
         setImgSrc("")
